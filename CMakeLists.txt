@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 set(PATCH_VERSION "0" CACHE INTERNAL "Patch version")
-set(PROJECT_VESRION 0.1.${PATCH_VERSION})
+set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(OTUS_CPP VERSION ${PROJECT_VESRION})
 
@@ -47,3 +47,17 @@ target_link_libraries(version_test PRIVATE GTest::gtest_main version)
 
 include(GoogleTest)
 gtest_discover_tests(version_test)
+
+
+install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
+
+set(CPACK_GENERATOR DEB)
+
+set(CPACK_PACKAGE_NAME helloworld)
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+
+set(CPACK_PACKAGE_CONTACT example@mail.com)
+
+include(CPack)
