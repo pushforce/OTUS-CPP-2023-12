@@ -24,3 +24,13 @@ jobs:
       - name: Package
         working-directory: ${{github.workspace}}/build
         run: cpack -VV
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./helloworld-0.0.${{ github.run_number }}-Linux.deb
+          token: ${{ secrets.RELEASE_TOKEN }}
+          draft: false
+          prerelease: false
+          name: Release ${{ github.run_number }}
+          tag_name: ${{ github.run_number }}
