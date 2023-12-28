@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions: write-all
 
     steps:
       - uses: actions/checkout@v3
@@ -26,11 +27,11 @@ jobs:
         run: cpack -VV
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          files: ./helloworld-0.0.${{ github.run_number }}-Linux.deb
-          token: ${{ secrets.RELEASE_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
           prerelease: false
-          name: Release ${{ github.run_number }}
-          tag_name: ${{ github.run_number }}
+          title: Release ${{ github.run_number }}
+          automatic_release_tag: ${{ github.run_number }}
+          files: ${{github.workspace}}/build/helloworld-0.0.${{ github.run_number }}-Linux.deb
